@@ -1,72 +1,28 @@
 #include "ofApp.h"
-
-//--------------------------------------------------------------
-void ofApp::setup(){
-
-}
-
-//--------------------------------------------------------------
-void ofApp::update(){
+void ofApp::setup()
+{
 
 }
 
-//--------------------------------------------------------------
 void ofApp::draw()
 {
-    ofDrawBitmapStringHighlight("Co tam??", 100, 100);
+    ofBackground(0,0,0);
+    drawCircle(ofGetWidth()/2, ofGetHeight()/2, 600);
 }
 
-//--------------------------------------------------------------
-void ofApp::keyPressed(int key){
-
+void ofApp::drawCircle(float x, float y, float radius)
+{
+    srand( time( NULL ) );
+    ofSetColor(std::rand()%255,std::rand()%255 , std::rand()%255);
+    ofDrawEllipse(x, y, radius, radius);
+    if(radius > 2)
+    {
+        drawCircle(x + radius/2, y, radius/2);
+        drawCircle(x - radius/2, y, radius/2);
+    }
 }
 
-//--------------------------------------------------------------
-void ofApp::keyReleased(int key){
-
-}
-
-//--------------------------------------------------------------
-void ofApp::mouseMoved(int x, int y ){
-
-}
-
-//--------------------------------------------------------------
-void ofApp::mouseDragged(int x, int y, int button){
-
-}
-
-//--------------------------------------------------------------
-void ofApp::mousePressed(int x, int y, int button){
-
-}
-
-//--------------------------------------------------------------
-void ofApp::mouseReleased(int x, int y, int button){
-
-}
-
-//--------------------------------------------------------------
-void ofApp::mouseEntered(int x, int y){
-
-}
-
-//--------------------------------------------------------------
-void ofApp::mouseExited(int x, int y){
-
-}
-
-//--------------------------------------------------------------
-void ofApp::windowResized(int w, int h){
-
-}
-
-//--------------------------------------------------------------
-void ofApp::gotMessage(ofMessage msg){
-
-}
-
-//--------------------------------------------------------------
-void ofApp::dragEvent(ofDragInfo dragInfo){ 
-
+void ofApp::update()
+{
+    
 }
