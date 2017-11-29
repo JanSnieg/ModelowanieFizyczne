@@ -10,6 +10,4 @@ class ofApp : public ofBaseApp{
 		void setup();
 		void update();
 		void draw();
-        void drawCircle(float x, float y, float radius);
-
 };

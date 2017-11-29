@@ -13,9 +13,10 @@
 
 class Particle2D
 {
-private:
     
-    struct Posicion
+public:
+    
+    struct Position
     {
         float x;
         float y;
@@ -33,16 +34,25 @@ private:
         float y;
     };
     
-public:
+    float dt = 0.01;
     
-    Posicion getPosition();
-    Posicion setPosiotion();
+    Position getPosition();
+    void setPosiotion(float, float);
     
     Velocity getVelocity();
-    Velocity setVelocity();
+    void setVelocity(float, float);
     
     Force getForce();
-    Force setForce();
+    void setForce(float, float);
+    
+    void updatePosition();
+    void updateVelocity();
+    void updateForce();
+    
+    Particle2D();
+//    Particle2D(Position);
+//    Particle2D(Position, Velocity);
+//    Particle2D(Position, Velocity, Force);
     
 };
 
