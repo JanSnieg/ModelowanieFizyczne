@@ -19,6 +19,7 @@ class Particle2D
     
 private:
     
+    //Structs that contains x and y axises
     struct Position
     {
         float x;
@@ -39,29 +40,34 @@ private:
     
 public:
     
+    //Other variables
     int lifeTime;
     float dt = 0.01;
     int mass;
     int side;
     
+    //Getters
     Position getPosition();
-    void setPosiotion(float, float);
-    
     Velocity getVelocity();
-    void setVelocity(float, float);
-    
     Force getForce();
+    
+    //Setters
+    void setVelocity(float, float);
+    void setPosiotion(float, float);
     void setForce(float, float);
     
+    //Physical methods
     void updatePosition();
     void updateVelocity();
     void updateForce();
     
+    //Constructor(s)
     Particle2D();
 //    Particle2D(Position);
 //    Particle2D(Position, Velocity);
 //    Particle2D(Position, Velocity, Force);
     
+    //Usefull Ranom method
     int RandomMinMax (int min, int max);
     
 };

@@ -7,21 +7,12 @@
 
 #include "Particle class.hpp"
 
-Particle2D::Position Particle2D::getPosition()
-{
-    return particlePosition;
-}
+//Getters
+Particle2D::Position Particle2D::getPosition()  {return particlePosition;}
+Particle2D::Velocity Particle2D::getVelocity()  {return particleVelocity;}
+Particle2D::Force Particle2D::getForce()        {return particleForce;}
 
-Particle2D::Velocity Particle2D::getVelocity()
-{
-    return particleVelocity;
-}
-
-Particle2D::Force Particle2D::getForce()
-{
-    return particleForce;
-}
-
+//Setters
 void Particle2D::setPosiotion(float x, float y)
 {
     particlePosition.x = x;
@@ -40,28 +31,35 @@ void Particle2D::setForce(float x, float y)
     particleForce.y = y;
 }
 
+//Constructor(s)
 Particle2D::Particle2D()
 {
-    side = RandomMinMax(5, 20);
     //Random side size from 5 to 20
-    mass = side * side;
+    side = RandomMinMax(5, 20);
+    
     //Mass will be coralated with surface of cube
-    lifeTime = RandomMinMax(10, 50);
+    mass = side * side;
+    
     // TODO: change it to be more like fire
-    setPosiotion(RandomMinMax(500, 600), 768 - side);
+    lifeTime = RandomMinMax(10, 50);
+    
     //Random x position on bottom of scene
+    setPosiotion(RandomMinMax(500, 600), 768 - side);
+    
+    //Set initial velocity in Vertical axis
     setVelocity(0, RandomMinMax(5, 20));
-    //Set velocity in Vertical axis
+    
+    //Set initial Force in Horizontal axis
     setForce(RandomMinMax(5, 20), 0);
-    //Set Force in Horizontal axis
 }
 
+//Physical part
 void Particle2D::updatePosition()
 {
+    float x = particlePosition.x + (particleVelocity.x * dt);
+    
     // TODO: Implement wave particle behavior
     float y = sin((particlePosition.y * M_PI)/180);
-    
-    float x = particlePosition.x + (particleVelocity.x * dt);
     y *= particleVelocity.y + (particleVelocity.y * dt);
     setPosiotion(x, y);
 }
