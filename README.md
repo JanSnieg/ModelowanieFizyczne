@@ -6,7 +6,7 @@ MiniProject about particle system
 ## Getting Started
 
 First of all I've wrote a particle class that contains x and y axes in all three ways: Position, Velocity and Force.
-Than that class needed getters and setters, so I've implemented that.
+Then that class needed getters and setters, so I've implemented that.
 Next step will be to add 'uploadPosition' etc. which will upload all three of dependences. Of course that will be physiclly correct.
 
 ### Examples
@@ -33,7 +33,7 @@ Particle2D::Position Particle2D::getPosition()
 ### ofApp.cpp
 
 Here I will try to explain and show what I did in main cpp file that is drawing scene.
-First think is method prepareParticle().
+First thing is method prepareParticle().
 First I'm creating new particle, than I'm setting its position in bottom-center of scene.
 Veleociti is now not used.
 Then I'm setting color of object to some kind of red (it will be fire so red is GOOD! :)).
