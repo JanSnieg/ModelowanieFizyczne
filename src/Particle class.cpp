@@ -9,41 +9,35 @@
 
 Particle2D::Position Particle2D::getPosition()
 {
-    Position position;
-    return position;
+    return particlePosition;
 }
 
 Particle2D::Velocity Particle2D::getVelocity()
 {
-    Velocity velocity;
-    return velocity;
+    return particleVelocity;
 }
 
 Particle2D::Force Particle2D::getForce()
 {
-    Force force;
-    return force;
+    return particleForce;
 }
 
 void Particle2D::setPosiotion(float x, float y)
 {
-    Position position;
-    position.x = x;
-    position.y = y;
+    particlePosition.x = x;
+    particlePosition.y = y;
 }
 
 void Particle2D::setVelocity(float x, float y)
 {
-    Velocity velocity;
-    velocity.x = x;
-    velocity.y = y;
+    particleVelocity.x = x;
+    particleVelocity.y = y;
 }
 
 void Particle2D::setForce(float x, float y)
 {
-    Force force;
-    force.x = x;
-    force.y = y;
+    particleForce.x = x;
+    particleForce.y = y;
 }
 
 Particle2D::Particle2D()

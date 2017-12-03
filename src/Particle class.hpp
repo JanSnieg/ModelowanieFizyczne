@@ -20,19 +20,19 @@ public:
     {
         float x;
         float y;
-    };
+    } particlePosition;
     
     struct Velocity
     {
         float x;
         float y;
-    };
+    } particleVelocity;
     
     struct Force
     {
         float x;
         float y;
-    };
+    } particleForce;
     
     float dt = 0.01;
     
