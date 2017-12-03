@@ -11,5 +11,5 @@ class ofApp : public ofBaseApp{
 		void setup();
         void update();
 		void draw();
-        void prepareParticle();
+        Particle2D prepareParticle();
 };

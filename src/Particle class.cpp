@@ -42,25 +42,44 @@ void Particle2D::setForce(float x, float y)
 
 Particle2D::Particle2D()
 {
-    setPosiotion(0, 0);
+    side = RandomMinMax(5, 20);
+    //Random side size from 5 to 20
+    mass = side * side;
+    //Mass will be coralated with surface of cube
+    lifeTime = RandomMinMax(10, 50);
+    // TODO: change it to be more like fire
+    setPosiotion(RandomMinMax(500, 600), 768 - side);
+    //Random x position on bottom of scene
+    setVelocity(0, RandomMinMax(5, 20));
+    //Set velocity in Vertical axis
+    setForce(RandomMinMax(5, 20), 0);
+    //Set Force in Horizontal axis
 }
 
 void Particle2D::updatePosition()
 {
-    Position position = getPosition();
-    Velocity velocity = getVelocity();
-    float x = position.x + (velocity.x * dt);
-    float y = position.y + (velocity.y * dt);
+    // TODO: Implement wave particle behavior
+    float y = sin((particlePosition.y * M_PI)/180);
+    
+    float x = particlePosition.x + (particleVelocity.x * dt);
+    y *= particleVelocity.y + (particleVelocity.y * dt);
     setPosiotion(x, y);
 }
 
-//Particle2D::Particle2D(Particle2D::Position position)
-//{
-//    setPosiotion(position.x, position.y);
-//}
-//
-//Particle2D::Particle2D(Particle2D::Position, Particle2D::Velocity)
-//{
-//    setPosiotion(p, <#float y#>)
-//}
-//
+void Particle2D::updateVelocity()
+{
+    float x = particleForce.x * dt;
+    float y = particleForce.y * dt;
+    setForce(x, y);
+}
+
+void Particle2D::updateForce()
+{
+    // TODO: Implement a wind Force
+}
+
+int Particle2D::RandomMinMax(int min, int max)
+{
+    srand(time(NULL));
+    return (std::rand() % (max - min)) + min;
+}

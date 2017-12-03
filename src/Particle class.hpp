@@ -10,11 +10,14 @@
 #define Particle_class_hpp
 
 #include <stdio.h>
+#include <cstdlib>
+#include <ctime>
+#include <math.h>
 
 class Particle2D
 {
     
-public:
+private:
     
     struct Position
     {
@@ -34,7 +37,12 @@ public:
         float y;
     } particleForce;
     
+public:
+    
+    int lifeTime;
     float dt = 0.01;
+    int mass;
+    int side;
     
     Position getPosition();
     void setPosiotion(float, float);
@@ -53,6 +61,8 @@ public:
 //    Particle2D(Position);
 //    Particle2D(Position, Velocity);
 //    Particle2D(Position, Velocity, Force);
+    
+    int RandomMinMax (int min, int max);
     
 };
 
