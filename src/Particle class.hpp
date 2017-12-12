@@ -13,6 +13,7 @@
 #include <cstdlib>
 #include <ctime>
 #include <math.h>
+#include "ofMain.h"
 
 class Particle2D
 {
@@ -38,28 +39,39 @@ private:
         float y;
     } particleForce;
     
+    struct Color
+    {
+        int r;
+        int g;
+        int b;
+    } particleColor;
+    
 public:
     
     //Other variables
-    int lifeTime;
+    bool isDead = false;
+    bool wasDead = false;
     float dt = 0.01;
     int mass;
-    int side;
+    float side;
     
     //Getters
     Position getPosition();
     Velocity getVelocity();
     Force getForce();
+    Color getColor();
     
     //Setters
     void setVelocity(float, float);
     void setPosiotion(float, float);
     void setForce(float, float);
+    void setColor(int r, int g, int b);
     
     //Physical methods
     void updatePosition();
     void updateVelocity();
     void updateForce();
+    void updateColor();
     
     //Constructor(s)
     Particle2D();
@@ -69,6 +81,8 @@ public:
     
     //Usefull Ranom method
     int RandomMinMax (int min, int max);
+    void drawParticle();
+    void fadeOut();
     
 };
 

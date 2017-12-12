@@ -1,37 +1,35 @@
 #include "ofApp.hpp"
 
-
 void ofApp::setup()
 {
+    srand(time(NULL));
     ofSetFrameRate(60);
+    for(int i =0; i<10; i++)
+        spamParticle();
+    ofBackground(35, 42, 70);
 }
 
 void ofApp::draw()
 {
-    for (int i=0; i<100; i++)
+    for (int i =0; i<particleVector.size(); i++)
     {
-        prepareParticle();
+        particleVector[i].drawParticle();
     }
 }
 
 void ofApp::update()
 {
-    Particle2D partilce = prepareParticle();
-    partilce.updatePosition();
+    spamParticle();
+    for (int i =0; i<particleVector.size(); i++)
+    {
+        particleVector[i].updatePosition();
+        particleVector[i].updateColor();
+    }
+    //TODO do stop on spacekey clicked
 }
 
-Particle2D ofApp::prepareParticle()
+void ofApp::spamParticle()
 {
     Particle2D particle = Particle2D::Particle2D();
-    ofSetColor((rand() % 100) + 100, 0, 0);
-    
-    stringstream ss;
-    ss << "x: \t" << ofToString(particle.getPosition().x) << "\n";
-    ss << "y: \t" << ofToString(particle.getPosition().y) << "\n";
-    ss << "mass: \t" << ofToString(particle.mass) << "\n";
-    ss << "side: \t" << ofToString(particle.side) << "\n";
-    ofDrawBitmapString(ss.str().c_str(), 20, 20);
-    
-    ofDrawRectangle(particle.getPosition().x, particle.getPosition().y, particle.side, particle.side);
-    return particle;
+    particleVector.push_back(std::move(particle));
 }
