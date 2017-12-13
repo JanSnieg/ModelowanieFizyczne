@@ -23,8 +23,8 @@ private:
     //Structs that contains x and y axises
     struct Position
     {
-        float x;
-        float y;
+        std::vector <float> x;
+        std::vector <float> y;
     } particlePosition;
     
     struct Velocity
@@ -44,6 +44,7 @@ private:
         int r;
         int g;
         int b;
+        int a;
     } particleColor;
     
 public:
@@ -51,9 +52,10 @@ public:
     //Other variables
     bool isDead = false;
     bool wasDead = false;
-    float dt = 0.01;
-    int mass;
+    float dt = 0.1;
+    float mass;
     float side;
+    int visible;
     
     //Getters
     Position getPosition();
@@ -62,10 +64,10 @@ public:
     Color getColor();
     
     //Setters
+    void setPosiotion(float, float, int);
     void setVelocity(float, float);
-    void setPosiotion(float, float);
     void setForce(float, float);
-    void setColor(int r, int g, int b);
+    void setColor(int r, int g, int b, int a);
     
     //Physical methods
     void updatePosition();
@@ -75,14 +77,15 @@ public:
     
     //Constructor(s)
     Particle2D();
-//    Particle2D(Position);
-//    Particle2D(Position, Velocity);
-//    Particle2D(Position, Velocity, Force);
+    ~Particle2D();
+    
+    void preparePositionVector();
     
     //Usefull Ranom method
     int RandomMinMax (int min, int max);
     void drawParticle();
     void fadeOut();
+    void smokeOn();
     
 };
 
