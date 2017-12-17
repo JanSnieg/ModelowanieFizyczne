@@ -18,4 +18,6 @@ class ofApp : public ofBaseApp{
         void update();
 		void draw();
         void spamParticle();
+    
+        ofEasyCam cam;
 };

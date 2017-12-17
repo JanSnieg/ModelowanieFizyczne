@@ -6,21 +6,27 @@ void ofApp::setup()
     ofSetFrameRate(60);
     spamParticle();
     ofBackground(35, 42, 70);
+//    ofSetColor(255, 255, 255);
+//    ofDrawPlane(0, 0, 0, 1000, 1000);
 }
 
 void ofApp::draw()
 {
-    ofDrawBitmapStringHighlight("Number of Particles: " + ofToString(particleVector.size()), 20, 20);
-    ofDrawBitmapStringHighlight("Fps: " + ofToString(ofGetFrameRate(), 2), 20, 40);
+    ofDrawBitmapStringHighlight("Number of Particles: " + ofToString(particleVector.size()), 20, 20, 20);
+    ofDrawBitmapStringHighlight("Fps: " + ofToString(ofGetFrameRate(), 2), 20, 40, 20);
+    cam.begin();
+    ofSetColor(80,85,50);
+    ofDrawBox(0, -300, 0, 10000, 0, 10000);
     for (int i =0; i<particleVector.size(); i++)
     {
         particleVector[i].drawParticle();
     }
+    cam.end();
 }
 
 void ofApp::update()
 {
-    for(int i =0; i<4; i++)
+    for(int i =0; i<6; i++)
         spamParticle();
     for (int i =0; i<particleVector.size(); i++)
     {

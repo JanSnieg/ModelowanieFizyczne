@@ -14,22 +14,25 @@ Particle2D::Force Particle2D::getForce()        {return particleForce;}
 Particle2D::Color Particle2D::getColor()        {return particleColor;}
 
 //Setters
-void Particle2D::setPosiotion(float x, float y, int i)
+void Particle2D::setPosiotion(float x, float y, float z, int i)
 {
     particlePosition.x[i] = x;
     particlePosition.y[i] = y;
+    particlePosition.z[i] = z;
 }
 
-void Particle2D::setVelocity(float x, float y)
+void Particle2D::setVelocity(float x, float y, float z)
 {
     particleVelocity.x = x;
     particleVelocity.y = y;
+    particleVelocity.z = z;
 }
 
-void Particle2D::setForce(float x, float y)
+void Particle2D::setForce(float x, float y, float z)
 {
     particleForce.x = x;
     particleForce.y = y;
+    particleForce.z = z;
 }
 
 void Particle2D::setColor(int r, int g, int b, int a)
@@ -53,10 +56,10 @@ Particle2D::Particle2D()
     setColor(RandomMinMax(220, 255), RandomMinMax(200, 240), RandomMinMax(30, 40), 255);
     
     //Set initial velocity in Vertical axis
-    setVelocity(0, RandomMinMax(-200, -190));
+    setVelocity(0, RandomMinMax(200, 190), 0);
     
     //Set initial Force in Horizontal axis
-    setForce(0, RandomMinMax(-70, -60));
+    setForce(0, RandomMinMax(60, 70), 0);
     
     //Random x position on bottom of scene
     preparePositionVector();
@@ -69,16 +72,19 @@ Particle2D::~Particle2D()   {}
 void Particle2D::preparePositionVector()
 {
     //First position, initial position
-    particlePosition.x.push_back(RandomMinMax(450, 600));
-    particlePosition.y.push_back(ofGetHeight()-side);
+    particlePosition.x.push_back(RandomMinMax(-75, 75));
+    particlePosition.y.push_back(-300);
+    particlePosition.z.push_back(RandomMinMax(-75, 75));
     
     //Secound position
     particlePosition.x.push_back(particlePosition.x[0] + dt * dt * (particleForce.x/mass));
     particlePosition.y.push_back(particlePosition.y[0] + dt * dt * (particleForce.y/mass));
+    particlePosition.z.push_back(particlePosition.z[0] + dt * dt * (particleForce.z/mass));
     
     //Third position, Verlet method
     particlePosition.x.push_back(2 * particlePosition.x[1] - particlePosition.x[0] + dt * dt * (particleForce.x/mass));
     particlePosition.y.push_back(2 * particlePosition.y[1] - particlePosition.y[0] + dt * dt * (particleForce.y/mass));
+    particlePosition.z.push_back(2 * particlePosition.z[1] - particlePosition.z[0] + dt * dt * (particleForce.z/mass));
 }
 
 //Physical part
@@ -86,30 +92,27 @@ void Particle2D::updatePosition()
 {
     float x = 2 * particlePosition.x[1] - particlePosition.x[0] + dt * dt * (particleForce.x/mass);
     float y = 2 * particlePosition.y[1] - particlePosition.y[0] + dt * dt * (particleForce.y/mass);
-//    float x = particlePosition.x + (particleVelocity.x * dt);
-//    float y = particlePosition.y - (particleVelocity.y *dt);
-    setPosiotion(x, y, 2);
-    setPosiotion(particlePosition.x[2], particlePosition.y[2],1);
-    setPosiotion(particlePosition.x[1], particlePosition.y[1],0);
+    float z = 2* particlePosition.z[1] - particlePosition.z[0] + dt * dt * (particleForce.z/mass);
+
+    setPosiotion(x, y, z, 2);
+    setPosiotion(particlePosition.x[2], particlePosition.y[2],particlePosition.z[2], 1);
+    setPosiotion(particlePosition.x[1], particlePosition.y[1], particlePosition.z[1], 0);
 }
 
 void Particle2D::updateVelocity()
 {
-//    float x = (particlePosition.x[2] - particlePosition.x[0]) / (2 * dt);
-//
-//    float y = (particlePosition.y[2] - particlePosition.y[0]) / (2 * dt);
     float x = particleVelocity.x + (particleForce.x * dt);
     float y = particleVelocity.y + (particleForce.y * dt);
-    setVelocity(x, y);
+    float z = particleVelocity.z + (particleForce.z * dt);
+    setVelocity(x, y, z);
 }
 
 void Particle2D::updateForce()
 {
     float fakeWindX = ofSignedNoise(getPosition().x[1] * 0.003, getPosition().y[1] * 0.006, ofGetElapsedTimef() * 0.6);
-//    float x = getForce().x;
     float x = fakeWindX * 40 + ofSignedNoise(uniqueValue, getPosition().y[1]) * 20;
-    //float y = ofSignedNoise(uniqueValue, getPosition().x[1] * 0.006, ofGetElapsedTimef() * 0.2) *0.09 + 0.18;
-    setForce(x, getForce().y);
+    float z = fakeWindX * 40 + ofSignedNoise(uniqueValue, getPosition().z[1]) * 20;
+    setForce(x, getForce().y, z);
 }
 
 void Particle2D::updateColor()
@@ -133,7 +136,7 @@ int Particle2D::RandomMinMax(int min, int max)
 void Particle2D::drawParticle()
 {
     ofSetColor(getColor().r, getColor().g, getColor().b, getColor().a);
-    ofDrawRectangle(getPosition().x[1], getPosition().y[1], side, side);
+    ofDrawBox(getPosition().x[1], getPosition().y[1], getPosition().z[1], side, side, side);
 }
 
 void Particle2D::fadeOut()
