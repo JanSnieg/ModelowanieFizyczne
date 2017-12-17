@@ -13,7 +13,7 @@ I have added methods like uploadPosition, velocity and force to step by step cha
 ### Introduction to Particle class
 
 To see what I mean I will give a simple code that cointains struct Position from Particle class.hpp.
-This struct cointains 3 vectors, becouse I've implemented verlet method, and for this every particle need to have 3 positions: (n-1, n and n+1).
+This struct cointains 3 vectors, because I've implemented Verlet method, and for this every particle need to have 3 positions: (n-1, n and n+1).
 
 ```
 struct Position
@@ -38,7 +38,7 @@ Particle2D::Position Particle2D::getPosition()
 In method spamParticle I'm creating object from Particle class and pushing it to vector.
 Then I use it to spam particles in ofApp::update(), to be sure that fire will keep burning.
 Next I'm going throught every object in vector and updating its variables.
-Finally I'm deleteing particle that are burned out.
+Finally I'm deleteing particles that are burned out.
 
 ```
 void ofApp::update()
@@ -66,7 +66,7 @@ void ofApp::spamParticle()
 ```
 
 Drawing is made in ofApp::draw(), which is pretty simple. Justy informatory I'm making two strings that contais number of particle in vector, and fps.
-Next I'm drawing box, on which fire is burning and drawing every particle in for loop.
+Next I'm drawing box, on which fire is burning, than drawing every particle in for loop.
 cam is ofEasyCam, and is needed to coordinate in 3D scene.
 
 ```
@@ -103,7 +103,7 @@ void Particle2D::preparePositionVector()
 ```
 and doing it in all 3 axises.
 
-Next intersing thing is in update position and it's like that:
+Next intersing thing is in update position (again Verlet) and it's like that:
 ```
 float x = 2 * particlePosition.x[1] - particlePosition.x[0] + dt * dt * (particleForce.x/mass);
 .
@@ -140,7 +140,7 @@ void Particle2D::updateColor()
     }
 }
 ```
-Here I'm just changing green color in RGB, becouse if g is smaller particle will become more and more redish and if it is red secound method will do fade out.
+Here I'm just changing green color in RGB, because if g is smaller particle will become more and more redish and if it's red secound method will do fading out.
 ```
 void Particle2D::fadeOut()
 {
@@ -158,8 +158,8 @@ void Particle2D::fadeOut()
     }
 }
 ```
-Visible variable is random int from 100 to 130.
-So here I'm just making my particles transarent, and if there are fully transparent they will become smoke:
+'Visible' variable is random int from 100 to 130.
+So here I'm just making my particles transparent, and if theye are fully transparent they will become smoke:
 ```
 void Particle2D::smokeOn()
 {
@@ -190,9 +190,9 @@ And this is everything I wanted to mantion here.
 
 ### Problems
 
-Main problem here was to particle variables easy to get and change.
-I've did all setters, getters and structs in first week so next will become more efficient.
-And it was much easier to do coloring, fading out and just uplifting particles, this took me like one day.
+Main problem here was to make particle variables easy to get and change.
+I've did all setters, getters and structs in first week so next days will become more efficient.
+And it was much easier to do coloring, fading out and just uplifting particles. This took me like one day.
 In the end I've wored on physics and maths, and that was chalenging, but all in all it is looking good.
 
 ## Thanks
