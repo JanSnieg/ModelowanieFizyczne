@@ -14,6 +14,7 @@
 #include <ctime>
 #include <math.h>
 #include "ofMain.h"
+//#include "PerlinNoise.h"
 
 class Particle2D
 {
@@ -25,18 +26,21 @@ private:
     {
         std::vector <float> x;
         std::vector <float> y;
+        std::vector <float> z;
     } particlePosition;
     
     struct Velocity
     {
         float x;
         float y;
+        float z;
     } particleVelocity;
     
     struct Force
     {
         float x;
         float y;
+        float z;
     } particleForce;
     
     struct Color
@@ -53,6 +57,7 @@ public:
     bool isDead = false;
     bool wasDead = false;
     float dt = 0.1;
+    float uniqueValue = ofRandom(-1000, 1000);
     float mass;
     float side;
     int visible;
@@ -64,9 +69,9 @@ public:
     Color getColor();
     
     //Setters
-    void setPosiotion(float, float, int);
-    void setVelocity(float, float);
-    void setForce(float, float);
+    void setPosiotion(float x, float y, float z, int i);
+    void setVelocity(float x, float y, float z);
+    void setForce(float x, float y, float z);
     void setColor(int r, int g, int b, int a);
     
     //Physical methods

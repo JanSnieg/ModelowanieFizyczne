@@ -69,7 +69,7 @@ Particle2D::~Particle2D()   {}
 void Particle2D::preparePositionVector()
 {
     //First position, initial position
-    particlePosition.x.push_back(RandomMinMax(400, 600));
+    particlePosition.x.push_back(RandomMinMax(450, 600));
     particlePosition.y.push_back(ofGetHeight()-side);
     
     //Secound position
@@ -105,29 +105,11 @@ void Particle2D::updateVelocity()
 
 void Particle2D::updateForce()
 {
-    //Curl noise
-    // TODO: Implement a wind Force
-    int scale = RandomMinMax(90, 100);
-    int speed = RandomMinMax(90, 100);
-    
-    int x = RandomMinMax(-100, 100);
-    int y = RandomMinMax(-100, 100);
-    
-    int dx = getPosition().x[1] - x;
-    int dy = getPosition().y[1] - y;
-    
-    int factor = 1 / (1 + (dx*dx + dy*dy)/scale);
-    
-    int vortexVx = -dy * speed;
-    int vortexVy = dx * speed;
-    
-    int vx = getVelocity().x;
-    int vy = getVelocity().y;
-    
-    vx += (vortexVx - vx) * factor;
-    vy += (vortexVy - vy) * factor;
-    
-    setVelocity(vx, vy);
+    float fakeWindX = ofSignedNoise(getPosition().x[1] * 0.003, getPosition().y[1] * 0.006, ofGetElapsedTimef() * 0.6);
+//    float x = getForce().x;
+    float x = fakeWindX * 40 + ofSignedNoise(uniqueValue, getPosition().y[1]) * 20;
+    //float y = ofSignedNoise(uniqueValue, getPosition().x[1] * 0.006, ofGetElapsedTimef() * 0.2) *0.09 + 0.18;
+    setForce(x, getForce().y);
 }
 
 void Particle2D::updateColor()

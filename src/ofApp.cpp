@@ -20,11 +20,12 @@ void ofApp::draw()
 
 void ofApp::update()
 {
-    for(int i =0; i<5; i++)
+    for(int i =0; i<4; i++)
         spamParticle();
     for (int i =0; i<particleVector.size(); i++)
     {
-        particleVector[i].updateForce();
+        if (particleVector[i].getColor().g < 180)
+            particleVector[i].updateForce();
         particleVector[i].updateVelocity();
         particleVector[i].updatePosition();
         particleVector[i].updateColor();
