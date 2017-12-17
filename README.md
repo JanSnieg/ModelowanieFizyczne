@@ -7,13 +7,13 @@ MiniProject about particle system
 
 First of all I've wrote a particle class that contains x, y and z axes in all three ways: Position, Velocity and Force.
 Then that class needed getters and setters, so I've implemented that.
-Secound thing I've done was to implement struct 'Color' with R,G,B and A. I've used it to generate yellow particles, and to control when particles will dissolve, and come back as smoke.
-I have added methods like uploadPosition, velocity and force to step by step change pasrticle behaviour.
+Second thing I've done was to implement struct 'Color' with R,G,B and A. I've used it to generate yellow particles, and to control when particles will dissolve, and come back as smoke.
+I have added methods like uploadPosition, velocity and force to step by step change particle behaviour.
 
 ### Introduction to Particle class
 
-To see what I mean I will give a simple code that cointains struct Position from Particle class.hpp.
-This struct cointains 3 vectors, because I've implemented Verlet method, and for this every particle need to have 3 positions: (n-1, n and n+1).
+To see what I mean I will give a simple code that contains struct Position from Particle class.hpp.
+This struct contains 3 vectors, because I've implemented Verlet method, and for this every particle need to have 3 positions: (n-1, n and n+1).
 
 ```
 struct Position
@@ -35,10 +35,10 @@ Particle2D::Position Particle2D::getPosition()
 
 ### ofApp.cpp
 
-In method spamParticle I'm creating object from Particle class and pushing it to vector.
+In method spamParticle I create object from Particle class and push it to vector.
 Then I use it to spam particles in ofApp::update(), to be sure that fire will keep burning.
-Next I'm going throught every object in vector and updating its variables.
-Finally I'm deleteing particles that are burned out.
+Next I'm going through every object in vector and updating its variables.
+Finally I'm deleting particles that are burned out.
 
 ```
 void ofApp::update()
@@ -65,9 +65,9 @@ void ofApp::spamParticle()
 
 ```
 
-Drawing is made in ofApp::draw(), which is pretty simple. Justy informatory I'm making two strings that contais number of particle in vector, and fps.
-Next I'm drawing box, on which fire is burning, than drawing every particle in for loop.
-cam is ofEasyCam, and is needed to coordinate in 3D scene.
+Drawing is made in ofApp::draw(), which is pretty simple. Just informatory I'm making two strings that contais number of particle in vector, and fps.
+Next I'm drawing box, on which fire is burning, after that I'm drawing every particle in for loop.
+Variable cam is ofEasyCam, and is needed to coordinate in 3D scene.
 
 ```
 void ofApp::draw()
@@ -88,7 +88,7 @@ void ofApp::draw()
 ### Physics, and maths
 
 All physics and maths are in 'update' methods and Particle2D::preparePositionVector().
-I'm preparing position for Verlet mathod in 3 steps:
+I'm preparing position for Verlet method in 3 steps:
 
 ```
 void Particle2D::preparePositionVector()
@@ -101,7 +101,7 @@ void Particle2D::preparePositionVector()
     particlePosition.x.push_back(2 * particlePosition.x[1] - particlePosition.x[0] + dt * dt * (particleForce.x/mass));
 }
 ```
-and doing it in all 3 axises.
+and doing it in all 3 axes.
 
 Next intersing thing is in update position (again Verlet) and it's like that:
 ```
@@ -114,7 +114,7 @@ setPosiotion(particlePosition.x[2], particlePosition.y[2],particlePosition.z[2],
 setPosiotion(particlePosition.x[1], particlePosition.y[1], particlePosition.z[1], 0);
 ```
 And this is how I know that I will always have position vector that contains 3 positions of x, y and z.
-Updating velocity is simple and not worthy mentioning, but updateForce is nice, based on one of ofExamples.
+Updating velocity is simple and not worthy mentioning, but updateForce is:
 ```
 float fakeWindX = ofSignedNoise(getPosition().x[1] * 0.003, getPosition().y[1] * 0.006, ofGetElapsedTimef() * 0.6);
 float x = fakeWindX * 40 + ofSignedNoise(uniqueValue, getPosition().y[1]) * 20;
@@ -124,7 +124,7 @@ setForce(x, getForce().y, z);
 I've used ofSignedNoise to make fire act like real fire, but if I will do this part of physics again I will do it better way making some Curl noises.
 
 ### Color
-In my little animation color is one of main variables that is deciding if particle is fading out or changeing into smoke so I will show how I did it.
+In my little animation color is one of main variables that is deciding if particle is fading out or changing into smoke so I will show how I did it.
 First method is:
 ```
 void Particle2D::updateColor()
@@ -140,7 +140,7 @@ void Particle2D::updateColor()
     }
 }
 ```
-Here I'm just changing green color in RGB, because if g is smaller particle will become more and more redish and if it's red secound method will do fading out.
+Here I'm just changing green color in RGB, because if g is smaller, particle will become more and more redish and if it's red second method will do fading out.
 ```
 void Particle2D::fadeOut()
 {
@@ -159,7 +159,7 @@ void Particle2D::fadeOut()
 }
 ```
 'Visible' variable is random int from 100 to 130.
-So here I'm just making my particles transparent, and if theye are fully transparent they will become smoke:
+So here I'm just making my particles transparent, and if they are they will become smoke:
 ```
 void Particle2D::smokeOn()
 {
@@ -191,11 +191,11 @@ And this is everything I wanted to mantion here.
 ### Problems
 
 Main problem here was to make particle variables easy to get and change.
-I've did all setters, getters and structs in first week so next days will become more efficient.
+I've done all setters, getters and structs in first week so next days would become more efficient.
 And it was much easier to do coloring, fading out and just uplifting particles. This took me like one day.
-In the end I've wored on physics and maths, and that was chalenging, but all in all it is looking good.
+In the end I've worked on physics and maths, and that was chalenging, but all in all it is looking good.
 
 ## Thanks
 
-My name is Paweł Olszowy, and I'm thankig you for you attention.
-This is miniproject made on my classes.
+My name is Paweł Olszowy, and thank you for your attention.
+This is miniproject made for my classes.
