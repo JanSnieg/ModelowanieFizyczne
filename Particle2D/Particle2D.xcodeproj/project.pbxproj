@@ -165,8 +165,8 @@
 			children = (
 				E4B69E1D0A3A1BDC003C02F2 /* main.cpp */,
 				E4B69E1E0A3A1BDC003C02F2 /* ofApp.cpp */,
-				7530074015C970767081522F /* ofApp.hpp */,
 				F8D5913F3A6E74228F73DF43 /* Particle class.hpp */,
+				7530074015C970767081522F /* ofApp.hpp */,
 				2FBD6009410BBA445E6AFC32 /* Particle class.cpp */,
 			);
 			path = src;
