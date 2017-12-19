@@ -38,7 +38,6 @@ void ofApp::update()
         if (particleVector[i].side <= 1)
             particleVector.erase(particleVector.begin()+i);
     }
-    //TODO do stop on spacekey clicked
 }
 
 void ofApp::spamParticle()
