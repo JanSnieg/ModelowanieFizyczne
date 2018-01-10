@@ -44,10 +44,10 @@ void Particle2D::setColor(int r, int g, int b, int a)
 Particle2D::Particle2D()
 {
     //Random side size from 5 to 20
-    side = RandomMinMax(10, 14);
+    side = RandomMinMax(7, 10);
     
     //Mass will be coralated with surface of cube
-    mass = (side * side)/200;
+    mass = (side * side)/100;
     
     //Setting fire color
     setColor(RandomMinMax(220, 255), RandomMinMax(200, 240), RandomMinMax(30, 40), 255);
