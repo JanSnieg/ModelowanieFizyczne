@@ -17,8 +17,8 @@ class PointClass
 private:
     struct position
     {
-        int x;
-        int y;
+        std::vector <float> x;
+        std::vector <float> y;
     } pointPosiotion;
     
     struct velocity
@@ -37,7 +37,11 @@ public:
     PointClass();
     ~PointClass();
     
-    int side = 2;
+    int side;
+    float mass;
+    float dt = 0.01;
+    float g = 9.98;
+    bool isHook = false;
     
     //getters
     position getPosition();
@@ -45,9 +49,16 @@ public:
     force getForce();
     
     //setters
-    void setPosiotion(int x, int y);
+    void setPosiotion(float x, float y, int i);
     void setVelocity(float x, float y);
     void setForce(float x, float y);
+    
+    void updatePosition();
+    void updateVelocity();
+    void updateForce();
+    
+    void updateAll();
+    void preparePositionVector(float x, float y);
     
     void drawPoint();
 };

@@ -1,22 +1,29 @@
 #pragma once
 
 #include "ofMain.h"
-#include "PointClass.hpp"
+#include "TrampolineClass.hpp"
+#include "rectangleClass.hpp"
 #include <cstdlib>
 #include <iostream>
+#include "ofxGui.h"
+#include <stdlib.h>
 
 
 class ofApp : public ofBaseApp{
 
 	public:
     
-    std::vector<PointClass> pointsVector;
+    TrampolineClass trampoline = TrampolineClass();
+    RectangleClass rectangle = RectangleClass();
+    ofxFloatSlider rectangleMass;
+    ofxPanel gui;
     
 		void setup();
 		void update();
 		void draw();
     
-        void connectPoints();
+        void moveRectangle();
+        void moveTrampoline();
 
 		void keyPressed(int key);
 		void keyReleased(int key);

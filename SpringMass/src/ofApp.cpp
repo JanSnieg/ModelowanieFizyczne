@@ -3,37 +3,50 @@
 //--------------------------------------------------------------
 void ofApp::setup()
 {
+    gui.setup();
+    gui.add(rectangleMass.setup("Rectangle mass",10,10,300));
     ofSetFrameRate(60);
     ofBackground(35, 42, 70);
-    for (int i=0; i<ofGetWidth(); i+=10)
-    {
-        PointClass *point = new PointClass();
-        point->setPosiotion(i, 500);
-        pointsVector.push_back(*std::move(point));
-    }
 }
 
 //--------------------------------------------------------------
-void ofApp::update(){
-
+void ofApp::update()
+{
+    moveRectangle();
+    moveTrampoline();
+    rectangle.setMass(rectangleMass);
 }
 
 //--------------------------------------------------------------
 void ofApp::draw()
 {
-    for (int i=0; i<pointsVector.size(); i++)
-        pointsVector[i].drawPoint();
+    for (int i=0; i<trampoline.pointsVector.size(); i++)
+        trampoline.pointsVector[i].drawPoint();
+    trampoline.draw();
+    rectangle.drawRectangle();
+    gui.draw();
 }
 
-void ofApp::connectPoints()
+void ofApp::moveRectangle()
 {
-    for (int i=0; i<pointsVector.size(); i++)
+    rectangle.updatePosition();
+    rectangle.updateVelocity();
+    rectangle.updateForce();
+}
+
+void ofApp::moveTrampoline()
+{
+    for (int i=0; i<trampoline.pointsVector.size(); i++)
     {
-        for (int j=1; j<pointsVector.size(); j++)
+        float distance = std::abs(rectangle.getPosition().y - trampoline.pointsVector[i].getPosition().y[1]);
+        if (distance == 1)
         {
-            
+            float forceX = trampoline.pointsVector[i].getForce().x;
+            float forceY = trampoline.pointsVector[i].getForce().y;
+            trampoline.pointsVector[i].setForce(forceX + rectangle.getForce().x, forceY + rectangle.getForce().y);
         }
     }
+    trampoline.updateAll();
 }
 
 //--------------------------------------------------------------
