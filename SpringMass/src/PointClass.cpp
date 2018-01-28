@@ -19,7 +19,7 @@ void PointClass::setPosiotion(float x, float y, int i)
 
 void PointClass::setVelocity(float x, float y)
 {
-    pointVelocity.x = y;
+    pointVelocity.x = x;
     pointVelocity.y = y;
 }
 
@@ -32,58 +32,62 @@ void PointClass::setForce(float x, float y)
 void PointClass::drawPoint()
 {
     ofSetColor(255, 255, 255);
-    ofDrawRectangle(getPosition().x[1], getPosition().y[1], side*3, side);
+    ofDrawRectangle(pointPosiotion.x[1], pointPosiotion.y[1], side*3, side);
 }
 
 void PointClass::updatePosition()
 {
+//    VERLET
     float x = 2 * pointPosiotion.x[1] - pointPosiotion.x[0] + dt * dt * (pointForce.x/mass);
     float y = 2 * pointPosiotion.y[1] - pointPosiotion.y[0] + dt * dt * (pointForce.y/mass);
-    
+
     setPosiotion(x, y, 2);
     setPosiotion(pointPosiotion.x[2], pointPosiotion.y[2], 1);
     setPosiotion(pointPosiotion.x[1], pointPosiotion.y[1], 0);
+    
+    
+//    EULER
+//    setPosiotion(pointPosiotion.x[1] + pointVelocity.x * dt, pointPosiotion.y[1] + pointVelocity.y * dt, 1);
 }
 
 void PointClass::updateVelocity()
 {
-    float x = getVelocity().x + getForce().x * dt;
-    float y = getVelocity().y + getForce().y * dt;
-    setVelocity(x, y);
+    setVelocity(pointVelocity.x + (pointForce.x * dt), pointVelocity.y + (pointForce.y * dt));
 }
 
 void PointClass::updateForce()
 {
-    pointForce.y = g * mass;
+    setForce(pointForce.x, pointForce.y + g * mass);
 }
 
 void PointClass::updateAll()
 {
     updatePosition();
     updateVelocity();
-    updateForce();
+//    updateForce();
 }
 
-void PointClass::preparePositionVector(float x, float y)
+void PointClass::preparePositionVector(int x, int y)
 {
     //First position, initial position
     pointPosiotion.x.push_back(x);
     pointPosiotion.y.push_back(y);
-    
+
     //Secound position
-    pointPosiotion.x.push_back(pointPosiotion.x[0] + dt * dt * (pointForce.x/mass));
-    pointPosiotion.y.push_back(pointPosiotion.y[0] + dt * dt * (pointForce.y/mass));
-    
+    pointPosiotion.x.push_back(pointPosiotion.x[0] + (dt * dt * (pointForce.x/mass)));
+    pointPosiotion.y.push_back(pointPosiotion.y[0] + (dt * dt * (pointForce.y/mass)));
+
     //Third position, Verlet method
-    pointPosiotion.x.push_back(2 * pointPosiotion.x[1] - pointPosiotion.x[0] + dt * dt * (pointForce.x/mass));
-    pointPosiotion.y.push_back(2 * pointPosiotion.y[1] - pointPosiotion.y[0] + dt * dt * (pointForce.y/mass));
+    pointPosiotion.x.push_back(2 * pointPosiotion.x[0] - pointPosiotion.x[1] + dt * dt * (pointForce.x/mass));
+    pointPosiotion.y.push_back(2 * pointPosiotion.y[0] - pointPosiotion.y[1] + dt * dt * (pointForce.y/mass));
 }
 
 PointClass::PointClass()
 {
-    mass = 0.1;
+    mass = 0.5;
     side = 2;
-    setForce(0, g);
+    setVelocity(0.1,10);
+    setForce(1, g);
 }
 PointClass::~PointClass()
 {

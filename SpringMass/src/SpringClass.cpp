@@ -23,8 +23,8 @@ SpringClass::~SpringClass()
 {
     
 }
-
-void SpringClass::updateAll()
+void SpringClass::drawSpring(PointClass p1, PointClass p2)
 {
-    //TODO update force;
+    ofSetColor(173, 13, 13);
+    ofDrawLine(p1.getPosition().x[1], p1.getPosition().y[1], p2.getPosition().x[1], p2.getPosition().y[1]);
 }

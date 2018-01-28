@@ -58,7 +58,7 @@ public:
     void updateForce();
     
     void updateAll();
-    void preparePositionVector(float x, float y);
+    void preparePositionVector(int x, int y);
     
     void drawPoint();
 };

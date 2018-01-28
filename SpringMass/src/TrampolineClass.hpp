@@ -18,15 +18,15 @@ class TrampolineClass
 {
 public:
     int LENGTH = ofGetWidth();
-    int DISTANCE = 10;
-    float KS = 10;
-    float KD = 0.1;
+    int DISTANCE = 64;
+    float KS = 3;
+    float KD = 3;
     std::vector<PointClass> pointsVector;
     std::vector<SpringClass> linesVector;
     
     TrampolineClass();
     ~TrampolineClass();
-    PointClass getPointHook();
+//    PointClass getPointHook();
     
     void draw();
     void updateAll();

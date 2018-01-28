@@ -59,7 +59,8 @@ void RectangleClass::drawRectangle()
 RectangleClass::RectangleClass()
 {
     setPosiotion(ofGetWidth()/2, 0);
-    setForce(0, g);
+    setVelocity(0.1,g);
+    setForce(0.1, g);
     setMass(100);
 }
 

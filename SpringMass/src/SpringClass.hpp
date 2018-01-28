@@ -9,6 +9,8 @@
 #define SpringClass_hpp
 
 #include <stdio.h>
+#include "ofMain.h"
+#include "PointClass.hpp"
 
 class SpringClass
 {
@@ -24,11 +26,11 @@ public:
     pointIndex getPointIndex();
     //setters
     void setPointIndex(int point1, int point2);
+    void drawSpring(PointClass p1, PointClass p2);
     
-    
+
     SpringClass(int point1, int point2);
     ~SpringClass();
-    void updateAll();
 };
 
 #endif /* SpringClass_hpp */
