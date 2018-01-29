@@ -20,6 +20,7 @@ void ofApp::update(){
 
 //--------------------------------------------------------------
 void ofApp::draw(){
+    ofDrawBitmapStringHighlight("You can drag and drop balls", ofGetWidth()/2 - 100, 20);
     drawBall();
     gui.draw();
 }
@@ -34,11 +35,11 @@ void ofApp::updateBall()
     float mass2SpringForceY = -spring.k*(spring.mass2PositionY - spring.mass1PositionY);
     float mass2SpringForceX = -spring.k*(spring.mass2PositionX - spring.mass1PositionX);
     
-    // Mass 1 daming
+    // Mass 1
     float mass1DampingForceY = spring.damping * spring.mass1VelocityY;
     float mass1DampingForceX = spring.damping * spring.mass1VelocityX;
     
-    // Mass 2 daming
+    // Mass 2
     float mass2DampingForceY = spring.damping * spring.mass2VelocityY;
     float mass2DampingForceX = spring.damping * spring.mass2VelocityX;
     
@@ -73,6 +74,21 @@ void ofApp::updateBall()
     // Mass 2 position
     spring.mass2PositionY += spring.mass2VelocityY * spring.timeStep;
     spring.mass2PositionX += spring.mass2VelocityX * spring.timeStep;
+    
+    //Updating radious
+    spring.radious = sqrt(spring.mass)*M_PI;
+    
+    //moving masses
+    if (isHolding1)
+    {
+        spring.mass1PositionX = mouseX;
+        spring.mass1PositionY = mouseY;
+    }
+    else if (isHolding2)
+    {
+        spring.mass2PositionX = mouseX;
+        spring.mass2PositionY = mouseY;
+    }
 }
 
 void ofApp::drawBall()
@@ -81,10 +97,10 @@ void ofApp::drawBall()
     ofSetColor(255, 255, 255);
     ofDrawRectangle(spring.anchorX-5, spring.anchorY-5, 10, 10);
     ofDrawLine(spring.anchorX, spring.anchorY, spring.mass1PositionX, spring.mass1PositionY);
-    ofDrawCircle(spring.mass1PositionX, spring.mass1PositionY, 20);
+    ofDrawCircle(spring.mass1PositionX, spring.mass1PositionY, spring.radious);
     
     ofDrawLine(spring.mass1PositionX, spring.mass1PositionY, spring.mass2PositionX, spring.mass2PositionY);
-    ofDrawCircle(spring.mass2PositionX, spring.mass2PositionY, 20);
+    ofDrawCircle(spring.mass2PositionX, spring.mass2PositionY, spring.radious);
 }
 
 //--------------------------------------------------------------
@@ -109,12 +125,26 @@ void ofApp::mouseDragged(int x, int y, int button){
 
 //--------------------------------------------------------------
 void ofApp::mousePressed(int x, int y, int button){
-
+    float firstDistX = x - spring.mass1PositionX;
+    float firstDistY = y - spring.mass1PositionY;
+    float secDistX = x - spring.mass2PositionX;
+    float secDistY = y - spring.mass2PositionY;
+    
+    if (firstDistX < spring.radious && firstDistY < spring.radious)
+        isHolding1 = true;
+    else if (secDistX < spring.radious && secDistY < spring.radious)
+        isHolding2 = true;
+    else
+    {
+        isHolding1 = false;
+        isHolding2 = false;
+    }
 }
 
 //--------------------------------------------------------------
 void ofApp::mouseReleased(int x, int y, int button){
-
+    isHolding1 = false;
+    isHolding2 = false;
 }
 
 //--------------------------------------------------------------

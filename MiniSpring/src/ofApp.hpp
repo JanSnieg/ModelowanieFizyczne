@@ -2,6 +2,8 @@
 
 #include "ofMain.h"
 #include "ofxGui.h"
+#include <stdio.h>      /* printf */
+#include <math.h>
 
 class ofApp : public ofBaseApp{
 
@@ -11,6 +13,7 @@ class ofApp : public ofBaseApp{
     {
         float gravity = 10;
         float mass = 100;
+        float radious = sqrt(mass)/M_PI;
         // Mass 1
         float mass1PositionY = 600;
         float mass1PositionX = 400;
@@ -25,7 +28,7 @@ class ofApp : public ofBaseApp{
         
         float timeStep = 0.05;
         float anchorX = ofGetWidth()/2;
-        float anchorY = 20;
+        float anchorY = 40;
         float k = 7;
         float damping = 10;} spring;
     
@@ -33,6 +36,9 @@ class ofApp : public ofBaseApp{
         ofxFloatSlider damping;
         ofxFloatSlider k;
         ofxPanel gui;
+    
+    bool isHolding1 = false;
+    bool isHolding2 = false;
     
 		void setup();
 		void update();
