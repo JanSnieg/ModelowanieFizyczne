@@ -78,7 +78,7 @@ void ofApp::updateBall()
     //Updating radious
     spring.radious = sqrt(spring.mass)*M_PI;
     
-    //moving masses
+    //Moving masses
     if (isHolding1)
     {
         spring.mass1PositionX = mouseX;
